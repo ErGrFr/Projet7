@@ -1,7 +1,8 @@
 //------------------- require liste ---------------------
 require('dotenv').config();    // recuperation des variables d'environnements 
 //const mongoose = require('mongoose');
-
+const db = require("./models");         // model pour database mysql
+//const PORT = process.env.PORT || 3000;  
 const express = require('express');
 const helmet = require('helmet');
 //const session = require('cookie-session');
@@ -13,6 +14,7 @@ const helmet = require('helmet');
 //     useUnifiedTopology: true })
 //   .then(() => console.log('Connexion à MongoDB réussie !'))
 //   .catch(() => console.log('Connexion à MongoDB échouée !'));
+
 
 
 
@@ -39,19 +41,25 @@ app.use(express.urlencoded({    // pour version 4.16.0 et +
     extended: true              // encodage de l'url
   }));
 
+//---------------------- sequelize ---------------------------
 
+// db.sequelize.sync().then(()=>{
+//   app.listen(3000, ()=>{
+//     console.log('Listening on : http://localhost:3000');
+//   })
+// })
 
 // -------------------------------------- Les Routes --------------------------------------------
 
 //------------- gestion des routes Sauces ---------------
-const saucesRoutes = require('./routes/sauces');  
-app.use('/api/sauces',saucesRoutes);
+// const saucesRoutes = require('./routes/sauces');  
+// app.use('/api/sauces',saucesRoutes);
 //-------------- gestion des routes auth ----------------
-const authRoutes = require('./routes/auth');
-app.use('/api/auth',authRoutes);
+// const authRoutes = require('./routes/auth');
+// app.use('/api/auth',authRoutes);
 //--------------- gestion route images (static) ---------
-const path = require('path');
-app.use('/images', express.static(path.join(__dirname, 'images')));
+// const path = require('path');
+// app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //--------------------------------------------------
 
