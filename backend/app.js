@@ -1,7 +1,7 @@
 //------------------- require liste ---------------------
 require('dotenv').config();    // recuperation des variables d'environnements 
 //const mongoose = require('mongoose');
-const db = require("./models");         // model pour database mysql
+const db = require("./models/index.js");         // model pour database mysql
 //const PORT = process.env.PORT || 3000;  
 const express = require('express');
 const helmet = require('helmet');
@@ -55,8 +55,8 @@ app.use(express.urlencoded({    // pour version 4.16.0 et +
 // const saucesRoutes = require('./routes/sauces');  
 // app.use('/api/sauces',saucesRoutes);
 //-------------- gestion des routes auth ----------------
-// const authRoutes = require('./routes/auth');
-// app.use('/api/auth',authRoutes);
+const authRoutes = require('./routes/auth');
+app.use('/api/auth',authRoutes);
 //--------------- gestion route images (static) ---------
 // const path = require('path');
 // app.use('/images', express.static(path.join(__dirname, 'images')));
