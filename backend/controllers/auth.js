@@ -2,7 +2,7 @@
 const bcrypt = require('bcrypt');           // lib bcrypt pour cryptage password
 const jwt = require('jsonwebtoken');        // lib jsonwebtoken pour gestion des token
 
-//const User = require('../models/user');     // model user
+const User = require('../models/user');     // model user
 
 
 
