@@ -3,8 +3,9 @@
 const express = require('express');
 require('dotenv').config({path: './.env'});    // fichier de configuration
 const app = express();
-//const db = require('./models/index.js');
-const db = require('./models');
+const db = require('./models/index.js');
+//const db = require('./models');
+//const db = require('./app');
 
 app.use(express.json());        // ou body parser , on intercepte toutes les requetes json
 app.use(express.urlencoded({    // pour version 4.16.0 et +

@@ -3,7 +3,8 @@ module.exports = (sequelize, Sequelize) => {
         email: Sequelize.STRING,
         username: Sequelize.STRING,
         password: Sequelize.STRING,
-        isAdmin: Sequelize.TINYINT
+        isAdmin: Sequelize.TINYINT,
+        test: Sequelize.STRING,
       })
   
     return User;

@@ -1,19 +1,11 @@
 //------------------- require liste ---------------------
 require('dotenv').config();    // recuperation des variables d'environnements 
 //const mongoose = require('mongoose');
-const db = require("./models/index.js");         // model pour database mysql
+//const db = require("./models/index.js");         // model pour database mysql
 //const PORT = process.env.PORT || 3000;  
 const express = require('express');
 const helmet = require('helmet');
 //const session = require('cookie-session');
-
-//------------------------- mongoDB  a remplacer par MySQL---------------------------------
-//const mongoose = require('mongoose');
-// mongoose.connect(process.env.DB_CONNECT,   
-//   { useNewUrlParser: true,
-//     useUnifiedTopology: true })
-//   .then(() => console.log('Connexion à MongoDB réussie !'))
-//   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 
 
