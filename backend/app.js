@@ -43,11 +43,13 @@ app.use(express.urlencoded({    // pour version 4.16.0 et +
 
 // -------------------------------------- Les Routes --------------------------------------------
 
+
 //------------- gestion des routes Sauces ---------------
 // const saucesRoutes = require('./routes/sauces');  
 // app.use('/api/sauces',saucesRoutes);
 //-------------- gestion des routes auth ----------------
 const authRoutes = require('./routes/auth');
+console.log('routes');
 app.use('/api/auth',authRoutes);
 //--------------- gestion route images (static) ---------
 // const path = require('path');
