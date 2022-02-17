@@ -1,5 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
+import Banner from './components/banner';
+import Maliste from './components/MaListe';
+
 
 function App() {
   return (
@@ -7,7 +10,8 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          <Banner />
+          <Maliste />
         </p>
         <a
           className="App-link"
