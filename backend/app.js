@@ -44,16 +44,16 @@ app.use(express.urlencoded({    // pour version 4.16.0 et +
 // -------------------------------------- Les Routes --------------------------------------------
 
 
-//------------- gestion des routes Sauces ---------------
-// const saucesRoutes = require('./routes/sauces');  
-// app.use('/api/sauces',saucesRoutes);
+//------------- gestion des routes Posts ---------------
+// const postsRoutes = require('./routes/posts');  
+// app.use('/api/posts',postRoutes);
 //-------------- gestion des routes auth ----------------
 const authRoutes = require('./routes/auth');
 console.log('routes');
 app.use('/api/auth',authRoutes);
 //--------------- gestion route images (static) ---------
-// const path = require('path');
-// app.use('/images', express.static(path.join(__dirname, 'images')));
+const path = require('path');
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //--------------------------------------------------
 
