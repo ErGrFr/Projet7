@@ -45,11 +45,11 @@ app.use(express.urlencoded({    // pour version 4.16.0 et +
 
 
 //------------- gestion des routes Posts ---------------
-// const postsRoutes = require('./routes/posts');  
-// app.use('/api/posts',postRoutes);
+const postsRoutes = require('./routes/posts');  
+app.use('/api/posts',postsRoutes);
 //-------------- gestion des routes auth ----------------
 const authRoutes = require('./routes/auth');
-console.log('routes');
+//console.log('routes');
 app.use('/api/auth',authRoutes);
 //--------------- gestion route images (static) ---------
 const path = require('path');
