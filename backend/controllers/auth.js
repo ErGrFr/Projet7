@@ -12,51 +12,55 @@ const User = db.user;
 //----------------------------------------------------------------------
 // requete POST SIGNUP, Ajout d'un utilisateur dans la base de données
 //------------------------------------------------------------------------
-// exports.signup = ((req, res, next) => {
-//     //delete req.body._id;  // supression de l'id créé par node
-//     bcrypt.hash(req.body.password, 10)  // 10 tours, semble suffisant pour un bon cryptage pas trop long
-//         .then(hash => {
-//             const newUser = new User({
-//                 email: req.body.email,  // email saisie
-//                 password: hash          // password crypté
-//             });
-//             // sauvegarde du user
-//             newUser.save()
-//                 .then(() => res.status(201).json({ message: 'Utilisateur enregistré !'}))
-//                 .catch(error => res.status(400).json({ error }));
-//         })
-//         .catch(error=> res.status(500).json({error}));
-// });
-exports.signup = (req, res, next) => {
-    User.findOne({
-      attributes: ['email'],
-      where: { email: req.body.email }
-    })
-      .then(user => {
-        if (!user) {
-          bcrypt.hash(req.body.password, 10)
-            .then(hash => {
-              const newUser = {
-                password: hash,
-                //username: req.body.username,
-                email: req.body.email,
-                isAdmin: false,
-              };
-              User.create(newUser)
-                .then(() => {
-                  res.status(201).json({ message: 'User created !' });
-                })
-            })
-            //.catch(error => res.status(500).json({ error }));
-            .catch(error => {
-              console.log(error);
-              res.status(500).json({ error })
+exports.signup = ((req, res, next) => {
+    //delete req.body._id;  // supression de l'id créé par node
+    bcrypt.hash(req.body.password, 10)  // 10 tours, semble suffisant pour un bon cryptage pas trop long
+        .then(hash => {
+            const newUser = new User({
+                email: req.body.email,  // email saisie
+                username: req.body.username,
+                password: hash,          // password crypté
+                isAdmin: false
             });
-        } else {
-          res.status(409).json({ error: 'Email already used!' })
-        }
-      })
-  };
+            // sauvegarde du user
+            newUser.save()
+                .then(() => res.status(201).json({ message: 'Utilisateur enregistré !'}))
+                .catch(error => res.status(400).json({ error }));
+        })
+        .catch(error=> res.status(500).json({error}));
+});
+
+
+// exports.signup = (req, res, next) => {
+//     User.findOne({
+//       attributes: ['email'],
+//       where: { email: req.body.email }
+//     })
+//       .then(user => {
+//         if (!user) {
+//           bcrypt.hash(req.body.password, 10)
+//             .then(hash => {
+//               const newUser = {
+//                 password: hash,
+//                 username: req.body.username,
+//                 email: req.body.email,
+//                 isAdmin: false,
+//               };
+//               User.create(newUser)
+//                 .then(() => {
+//                   res.status(201).json({ message: 'User created !' });
+//                 })
+//             })
+//             //.catch(error => res.status(500).json({ error }));
+//             .catch(error => {
+//               console.log(error);
+//               res.status(500).json({ error })
+//             });
+//         } else {
+//           res.status(409).json({ error: 'Email already used!' })
+//         }
+//       })
+//   };
 
 
 
@@ -90,7 +94,7 @@ exports.signup = (req, res, next) => {
 // };
 
 exports.login = (req, res, next) => {
-    console.log(req.body);
+    //console.log(req.body);
     User.findOne({
       where: { email: req.body.login }
     })
