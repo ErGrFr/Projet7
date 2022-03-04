@@ -2,7 +2,8 @@
 const bcrypt = require('bcrypt');           // lib bcrypt pour cryptage password
 const jwt = require('jsonwebtoken');        // lib jsonwebtoken pour gestion des token
 
-const User = require('../models/user');     // model user
+const db = require('../models');     // models  ( fichier index.js par default)
+const User = db.user;
 
 
 
@@ -46,7 +47,11 @@ exports.signup = (req, res, next) => {
                   res.status(201).json({ message: 'User created !' });
                 })
             })
-            .catch(error => res.status(500).json({ error }));
+            //.catch(error => res.status(500).json({ error }));
+            .catch(error => {
+              console.log(error);
+              res.status(500).json({ error })
+            });
         } else {
           res.status(409).json({ error: 'Email already used!' })
         }
@@ -87,9 +92,10 @@ exports.signup = (req, res, next) => {
 exports.login = (req, res, next) => {
     console.log(req.body);
     User.findOne({
-      where: { email: req.body.email }
+      where: { email: req.body.login }
     })
       .then(user => {
+        console.log(user);
         if (!user) {
           return res.status(401).json({ error: 'User not found!' });
         }
@@ -111,5 +117,7 @@ exports.login = (req, res, next) => {
           })
           .catch(error => res.status(500).json({ error }));
       })
-      .catch(error => res.status(500).json({ error }));
+      .catch(error => {
+        console.log(error);
+        res.status(500).json({ error })});
   };

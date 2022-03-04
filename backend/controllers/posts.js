@@ -2,7 +2,8 @@
 //------------------------------ gestion des POSTS ---------------------------------
 //-----------------------------------------------------------------------------------
 
-const Post = require('../models/post');
+const db = require('../models');
+const Post = db.post;
 
 const fs = require('fs');  // file system, pour supprimer l'image local
 
@@ -11,7 +12,7 @@ const fs = require('fs');  // file system, pour supprimer l'image local
 //--------------------- recupere tous les Posts ----------------------
 //-----------------------------------------------------------------------
 exports.getAllPosts = (req, res, next) => {
-    Post.find().then(
+    Post.findAll().then(
       (posts) => {
         res.status(200).json(posts);
       }
@@ -31,20 +32,21 @@ exports.createPost = async function (req, res, next) {
   // On stock les datas du frontend
   const monPost = JSON.parse(req.body.post);
   
-  // création de l'objet sauce ( model sauce)
+  // création de l'objet Post ( model post)
   const newPost = new Post({
     ...monPost,   // recuperation des datas de maSauce ( frontend )
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`, // http://localhost:3000/images/nom.jpg
-    likes: 0,     // init a zero, car nouvelle sauce
-    dislikes: 0,
-    usersLiked: [],
-    usersDisliked: []
+    userId: res.locals.userId,
+    //likes: 0,     // init a zero, car nouvelle sauce
+    //dislikes: 0,
+    //usersLiked: [],
+    //usersDisliked: []
   });
   
   const savePost = await newPost.save()
   .then( () => {
       res.status(201).json({
-        message: 'Sauce saved successfully!'
+        message: 'Post saved successfully!'
       });
     }
   ).catch( (error) => {
