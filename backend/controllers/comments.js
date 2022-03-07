@@ -3,19 +3,19 @@
 //-----------------------------------------------------------------------------------
 
 const db = require('../models');
-const Post = db.post;
+const Comment = db.comment;
 
-const fs = require('fs');  // file system, pour supprimer l'image local
+//const fs = require('fs');  // file system, pour supprimer l'image local
 
 
 //-----------------------------------------------------------------------
-//--------------------- recupere tous les Posts ----------------------
+//--------------------- recupere tous les Comments d'un Post ----------------------
 //-----------------------------------------------------------------------
-exports.getAllPosts = (req, res, next) => {
-    console.log("Posts getAllPosts");
-    Post.findAll().then(
-      (posts) => {
-        res.status(200).json(posts);
+exports.getComments = (req, res, next) => {
+    console.log("Comments getComments");
+    Comment.findAll().then(
+      (comments) => {
+        res.status(200).json(comments);
       }
     ).catch(
       (error) => {
@@ -26,18 +26,18 @@ exports.getAllPosts = (req, res, next) => {
   
 
 //-----------------------------------------------------------------------------------
-//---------------------------- création d'un Post ---------------------------------
+//---------------------------- création d'un Comment ---------------------------------
 //-----------------------------------------------------------------------------------
-exports.createPost = async function (req, res, next) {
+exports.createComment = async function (req, res, next) {
 
-  console.log("creatPost controller");
+  console.log("creatComment controller");
   console.log(req.body);
   // On stock les datas du frontend
   //const monPost = JSON.parse(req.body); 
   //console.log(monPost);
   
   // création de l'objet Post ( model post)
-  const newPost = new Post({
+  const newComment = new Comment({
     ...req.body,   // recuperation des datas  ( frontend )
     //imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`, // http://localhost:3000/images/nom.jpg
     //userId: res.locals.userId,
@@ -47,10 +47,10 @@ exports.createPost = async function (req, res, next) {
     //usersDisliked: []
   });
   
-  const savePost = await newPost.save()
+  const saveComment = await newComment.save()
   .then( () => {
       res.status(201).json({
-        message: 'Post saved successfully!'
+        message: 'Comment saved successfully!'
       });
     }
   ).catch( (error) => {
@@ -63,19 +63,19 @@ exports.createPost = async function (req, res, next) {
 
 
 //-----------------------------------------------------------------------------------
-//---------------------------- supression d'un Post ------------------------------
+//---------------------------- supression d'un Comment ------------------------------
 //----------------------------------------------------------------------------------
-exports.deletePost = (req, res, next) => {
+exports.deleteComment = (req, res, next) => {
     // suppression du fichier image local
     console.log(req.params)
-    Post.findOne({_id: req.params.id})
+    Comment.findOne({_id: req.params.id})
       .then( post => {
         //const filename = post.imageUrl.split('/images/')[1];
-        //fs.unlink(`images/${filename}`, () => {       // suppression du fichier local et du post
+        //fs.unlink(`images/${filename}`, () => {       // suppression du fichier local et du comment
           console.log(req.params.id);
-          Post.destroy({where : {id: req.params.id}})   // suppression de l'enregistrement passé en parametre
+          Comment.destroy({where : {id: req.params.id}})   // suppression de l'enregistrement passé en parametre
           .then( () => {
-              res.status(200).json({message: 'Post Deleted!'});
+              res.status(200).json({message: 'Comment Deleted!'});
             })
           .catch( (error) => {
               res.status(400).json({error: error});
@@ -89,27 +89,27 @@ exports.deletePost = (req, res, next) => {
   };
 
   //--------------------------------------------------------------------------------
-//-------------------------- modification d'un post ----------------------------
+//-------------------------- modification d'un comment ----------------------------
 //--------------------------------------------------------------------------------
-exports.modifyPost = (req, res, next) => {
+exports.modifyComment = (req, res, next) => {
 
-  console.log("modify Post");
+  console.log("modify Comment");
   if (req.file){  // si req.file existe ( modification de l'image)
     
-      Post.findOne({_id: req.params.id})  // recherche le POST a modifier pour supprimer l'ancienne image
-      .then( post => {
+      Comment.findOne({_id: req.params.id})  // recherche le POST a modifier pour supprimer l'ancienne image
+      .then( comment => {
       
-        const filename = post.imageUrl.split('/images/')[1]; // recuperation du nom de l'image
+        const filename = comment.imageUrl.split('/images/')[1]; // recuperation du nom de l'image
   
         fs.unlinkSync(`images/${filename}`);//, (err) => {  // suppression du fichier local ( SYNC )
     
-          const monPost = {
-            ...JSON.parse(req.body.post),
+          const monComment = {
+            ...JSON.parse(req.body.comment),
             imageUrl:  `${req.protocol}://${req.get('host')}/images/${req.file.filename}`, // MAJ nouvelle image
           }
           // sauvegarde dans la BDD
-          Post.update({...req.body},{where : {id: req.params.id}})
-            .then( () => res.status(201).json({message: 'Post updated successfully!'}))
+          Comment.update({...req.body},{where : {id: req.params.id}})
+            .then( () => res.status(201).json({message: 'Comment updated successfully!'}))
             .catch((error) => res.status(400).json({error: error}));
         //});     
       })
@@ -119,8 +119,8 @@ exports.modifyPost = (req, res, next) => {
     // sauvegarde dans la BDD
     //const monPost = {...req.body};
     //console.log("else");
-    Post.update({...req.body},{where : {id: req.params.id}})
-    .then( () => res.status(201).json({message: 'Post updated successfully!'}))
+    Comment.update({...req.body},{where : {id: req.params.id}})
+    .then( () => res.status(201).json({message: 'Comment updated successfully!'}))
     .catch((error) => res.status(400).json({error: error}));
   };  
   

@@ -43,7 +43,9 @@ app.use(express.urlencoded({    // pour version 4.16.0 et +
 
 // -------------------------------------- Les Routes --------------------------------------------
 
-
+//------------- gestion des routes Comments ---------------
+const commentsRoutes = require('./routes/comments.js');  
+app.use('/api/comments',commentsRoutes);
 //------------- gestion des routes Posts ---------------
 const postsRoutes = require('./routes/posts');  
 app.use('/api/posts',postsRoutes);
