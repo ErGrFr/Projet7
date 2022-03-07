@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
   try {
-    console.log("Middlewares auth");
+    //console.log("Middlewares auth");
     // recuperation de la chaine du header ( apres mot spread : spread chainecrypté)
     const token = req.headers.authorization.split(' ')[1];    // split sur l'espace apres spread   
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_STRING); // verification du token

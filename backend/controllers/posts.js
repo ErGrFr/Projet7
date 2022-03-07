@@ -87,3 +87,41 @@ exports.deletePost = (req, res, next) => {
       .catch(error => res.status(400).json({error}))
     
   };
+
+  //--------------------------------------------------------------------------------
+//-------------------------- modification d'une sauce ----------------------------
+//--------------------------------------------------------------------------------
+exports.modifyPost = (req, res, next) => {
+
+  console.log("modify Post");
+  if (req.file){  // si req.file existe ( modification de l'image)
+    
+      Post.findOne({_id: req.params.id})  // recherche le POST a modifier pour supprimer l'ancienne image
+      .then( post => {
+      
+        const filename = post.imageUrl.split('/images/')[1]; // recuperation du nom de l'image
+  
+        fs.unlinkSync(`images/${filename}`);//, (err) => {  // suppression du fichier local ( SYNC )
+    
+          const monPost = {
+            ...JSON.parse(req.body.post),
+            imageUrl:  `${req.protocol}://${req.get('host')}/images/${req.file.filename}`, // MAJ nouvelle image
+          }
+          // sauvegarde dans la BDD
+          Post.update({...req.body},{where : {id: req.params.id}})
+            .then( () => res.status(201).json({message: 'Post updated successfully!'}))
+            .catch((error) => res.status(400).json({error: error}));
+        //});     
+      })
+      .catch(error => res.status(400).json({error}))
+
+  } else { // si req.file n'existe pas , on passe a la maj simple
+    // sauvegarde dans la BDD
+    //const monPost = {...req.body};
+    //console.log("else");
+    Post.update({...req.body},{where : {id: req.params.id}})
+    .then( () => res.status(201).json({message: 'Post updated successfully!'}))
+    .catch((error) => res.status(400).json({error: error}));
+  };  
+  
+};
