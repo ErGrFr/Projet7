@@ -12,8 +12,15 @@ const User = db.user;
 //----------------------------------------------------------------------
 // requete POST SIGNUP, Ajout d'un utilisateur dans la base de données
 //------------------------------------------------------------------------
-exports.signup = ((req, res, next) => {
-    //delete req.body._id;  // supression de l'id créé par node
+exports.signup = async function (req, res, next) {
+
+    console.log("Auyh signup");
+    // --------------- gestion de l'utilisateur ( login name) ------------------
+    const user = await User.findOne ({ email: req.body.email}); // await : on attend la reponse
+    if(user){  // verif si l'utilisateur est trouvé
+        return res.status(401).json({error: 'Utilisateur déjà connue'});
+    }
+    
     bcrypt.hash(req.body.password, 10)  // 10 tours, semble suffisant pour un bon cryptage pas trop long
         .then(hash => {
             const newUser = new User({
@@ -28,7 +35,7 @@ exports.signup = ((req, res, next) => {
                 .catch(error => res.status(400).json({ error }));
         })
         .catch(error=> res.status(500).json({error}));
-});
+};
 
 
 // exports.signup = (req, res, next) => {
@@ -94,7 +101,8 @@ exports.signup = ((req, res, next) => {
 // };
 
 exports.login = (req, res, next) => {
-    //console.log(req.body);
+    console.log(req.body);
+    console.log("Auth login");
     User.findOne({
       where: { email: req.body.login }
     })
