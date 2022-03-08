@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------------
-//------------------------------ gestion des POSTS ---------------------------------
+//------------------------------ gestion des COMMENTS ---------------------------------
 //-----------------------------------------------------------------------------------
 
 const db = require('../models');
@@ -13,7 +13,8 @@ const Comment = db.comment;
 //-----------------------------------------------------------------------
 exports.getComments = (req, res, next) => {
     console.log("Comments getComments");
-    Comment.findAll().then(
+    Comment.findAll({where : {postId: req.params.id}})    // recherche comments par no de post
+    .then(
       (comments) => {
         res.status(200).json(comments);
       }
