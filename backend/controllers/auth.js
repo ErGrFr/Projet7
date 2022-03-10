@@ -14,9 +14,9 @@ const User = db.user;
 //------------------------------------------------------------------------
 exports.signup = async function (req, res, next) {
 
-    console.log("Auyh signup");
+    console.log("Auth signup");
     // --------------- gestion de l'utilisateur ( login name) ------------------
-    const user = await User.findOne ({ email: req.body.email}); // await : on attend la reponse
+    const user = await User.findOne ({where : { email: req.body.email}}); // await : on attend la reponse
     if(user){  // verif si l'utilisateur est trouvé
         return res.status(401).json({error: 'Utilisateur déjà connue'});
     }
@@ -129,7 +129,7 @@ exports.login = (req, res, next) => {
           })
           .catch(error => res.status(500).json({ error }));
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         res.status(500).json({ error })});
   };

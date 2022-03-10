@@ -11,8 +11,8 @@ const multer = require('../middlewares/multer-cfg');     // fichier image
 //console.log("routes posts");
 router.get('/', auth, postsCtrl.getAllPosts);               // recupere tous les Posts
 
-//router.post('/', auth, multer, postsCtrl.createPost);       // creation d'un post
-router.post('/', multer, postsCtrl.createPost);       // creation d'un post
+router.post('/', auth, multer, postsCtrl.createPost);       // creation d'un post
+//router.post('/', multer, postsCtrl.createPost);       // creation d'un post
 
 //router.put('/:id', auth, multer, postsCtrl.modifyPost);     // modification d'un post
 //router.put('/:id', auth, postsCtrl.modifyPost);     // modification d'un post
