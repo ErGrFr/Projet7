@@ -12,7 +12,7 @@ const Comment = db.comment;
 //--------------------- recupere tous les Comments d'un Post ----------------------
 //-----------------------------------------------------------------------
 exports.getComments = (req, res, next) => {
-    console.log("Comments getComments");
+    
     Comment.findAll({where : {postId: req.params.id}})    // recherche comments par no de post
     .then(
       (comments) => {
@@ -31,11 +31,7 @@ exports.getComments = (req, res, next) => {
 //-----------------------------------------------------------------------------------
 exports.createComment = async function (req, res, next) {
 
-  console.log("creatComment controller");
-  console.log(req.body);
-  // On stock les datas du frontend
-  //const monPost = JSON.parse(req.body); 
-  //console.log(monPost);
+  
   
   // création de l'objet Post ( model post)
   const newComment = new Comment({
@@ -68,12 +64,12 @@ exports.createComment = async function (req, res, next) {
 //----------------------------------------------------------------------------------
 exports.deleteComment = (req, res, next) => {
     // suppression du fichier image local
-    console.log(req.params)
+    
     Comment.findOne({_id: req.params.id})
       .then( post => {
         //const filename = post.imageUrl.split('/images/')[1];
         //fs.unlink(`images/${filename}`, () => {       // suppression du fichier local et du comment
-          console.log(req.params.id);
+          
           Comment.destroy({where : {id: req.params.id}})   // suppression de l'enregistrement passé en parametre
           .then( () => {
               res.status(200).json({message: 'Comment Deleted!'});
@@ -112,14 +108,13 @@ exports.modifyComment = (req, res, next) => {
           Comment.update({...req.body},{where : {id: req.params.id}})
             .then( () => res.status(201).json({message: 'Comment updated successfully!'}))
             .catch((error) => res.status(400).json({error: error}));
-        //});     
+            
       })
       .catch(error => res.status(400).json({error}))
 
   } else { // si req.file n'existe pas , on passe a la maj simple
     // sauvegarde dans la BDD
-    //const monPost = {...req.body};
-    //console.log("else");
+    
     Comment.update({...req.body},{where : {id: req.params.id}})
     .then( () => res.status(201).json({message: 'Comment updated successfully!'}))
     .catch((error) => res.status(400).json({error: error}));

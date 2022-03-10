@@ -101,13 +101,12 @@ exports.signup = async function (req, res, next) {
 // };
 
 exports.login = (req, res, next) => {
-    console.log(req.body);
-    console.log("Auth login");
+    
     User.findOne({
       where: { email: req.body.login }
     })
       .then(user => {
-        console.log(user);
+        
         if (!user) {
           return res.status(401).json({ error: 'User not found!' });
         }

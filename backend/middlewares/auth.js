@@ -9,24 +9,25 @@ module.exports = (req, res, next) => {
     console.log("Middlewares auth");
     // recuperation de la chaine du header ( apres mot spread : spread chainecrypté)
     const token = req.headers.authorization.split(' ')[1];    // split sur l'espace apres spread 
-    console.log(token);
-    console.log(process.env.JWT_SECRET_STRING);
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET_STRING); // verification du token
-    const userId = decodedToken.userId;
-    console.log(userId);
-    console.log(decodedToken);
-    console.log(req.body.userId);
-    if (req.body.userId != userId) {    // userId present et userId different du userId token
-      console.log("id not ok");
-      throw 'Invalid user ID';
-    } else {
-      console.log("id ok");
-      next();   // ok, on passe a la suite
+    
+    
+    if (!token) {
+      return res.status(403).send("A token is required for authentication");
     }
+    try {
+      //const decoded = jwt.verify(token, config.TOKEN_KEY);
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET_STRING); // verification du token
+      //const userId = decodedToken.userId;
+      req.user = decodedToken;
+  
+    } catch (err) {
+      return res.status(401).send("Invalid Token");
+    }
+    return next();
   } 
   catch (error) {
-    console.log(error);
-    res.status(401).json({ error })
+    
+    res.status(403).json({ error })
   };
   
 };
