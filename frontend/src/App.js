@@ -1,30 +1,31 @@
-//import logo from './logo.svg';
+import logo from './logo.svg';
 import './App.css';
 import Banner from './components/banner';
-import Maliste from './components/MaListe';
+//import Maliste from './components/MaListe';
+import Signin from './components/signin';
 
-// <img src={logo} className="App-logo" alt="logo" />
+ <img src={logo} className="App-logo" alt="logo" />
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-         <nav>
+         <div class="container-fluid">
           <Banner />
-         </nav>
-         
-         <body>
-          <p>
-            <Maliste />
-          </p>
-         </body>
+         </div>
+      </header>
+      <body class="container">
+        
+        <Signin/>
+      
+      </body>
 
         <footer>
 
         </footer>
 
         
-      </header>
+      
     </div>
   );
 }

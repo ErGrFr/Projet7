@@ -3,10 +3,22 @@ import '../styles/Banner.css'
 
 function Banner() {
     return (
-    <div className="mybanner">
-        <img src={logo} alt='Groupomania' className='logo' />
-        <a href="../../public/login.html">Login</a>
-    </div>
+    <nav class="navbar navbar-expand-lg">
+        <div className="mybanner">
+            <img src={logo} alt='Groupomania logo' className='logo' />
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="../../public/index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../public/signin.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
     );
 }
 export default Banner
