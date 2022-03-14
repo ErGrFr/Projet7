@@ -1,26 +1,29 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
 import Banner from './components/banner';
 import Maliste from './components/MaListe';
 
+// <img src={logo} className="App-logo" alt="logo" />
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
+         <nav>
           <Banner />
-          <Maliste />
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+         </nav>
+         
+         <body>
+          <p>
+            <Maliste />
+          </p>
+         </body>
+
+        <footer>
+
+        </footer>
+
+        
       </header>
     </div>
   );

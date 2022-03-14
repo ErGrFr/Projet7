@@ -5,7 +5,7 @@ function Banner() {
     return (
     <div className="mybanner">
         <img src={logo} alt='Groupomania' className='logo' />
-        <h1>TEST</h1>
+        <a href="../../public/login.html">Login</a>
     </div>
     );
 }
