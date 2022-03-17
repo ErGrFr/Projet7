@@ -9,17 +9,18 @@ function Banner() {
     <nav class="navbar navbar-expand-lg">
         <div className="mybanner">
             <img src={logo} alt='Groupomania logo' className='logo' />
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <NavLink activeClassName="nav-item" to="/">
-                        <li class="nav-link active">HomeNavLink</li>
-                    </NavLink>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../../public/index.html">Home</a>
+            <div className="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul className="navbar-nav">
+                    <li className="nav-item">
+                        <NavLink ClassName="nav-link" to="/">Home</NavLink>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../../public/signin.html">Login</a>
+                        <NavLink ClassName="nav-link" to="/Login">Login</NavLink>
                     </li>
+                    <li class="nav-item">
+                        <NavLink ClassName="nav-link" to="/Signup">Signup</NavLink>
+                    </li>
+                    
                 </ul>
             </div>
         </div>
