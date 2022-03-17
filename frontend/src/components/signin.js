@@ -1,5 +1,41 @@
 //import logo from '../assets/icon-left-font.png'
+import React from 'react';
+
 import '../styles/signin.css'
+
+
+class Login extends React.Component{
+    constructor(props){
+      super(props)
+        console.log(props)
+
+        //---------------------------------------------------------------
+        //------------ requete user selectionné ------------------
+        //-----------------------------------------------------------------
+
+        let url = "http://localhost:3001/api/auth/login" // requete API
+
+        fetch(url)
+        .then(response =>                   // promesse réponse serveur
+            response.json()
+            .then((userId) => {            // promesse datas JSON
+              console.log(userId);
+        
+            })
+        .catch()                        // Gestion des erreurs
+        )
+        .catch(()=>{
+          // ajout message d'erreur
+          //document.getElementById('title').innerText = 'User inconnu';
+          console.log("erreur requete"+ url)
+        })
+
+    }
+    
+}
+
+
+
 
 function Signin() {
     return (
@@ -22,7 +58,11 @@ function Signin() {
               <input type="checkbox" value="remember-me"></input> se souvenir de moi
             </label>
           </div>
-          <button class="w-100 btn btn-lg btn-primary" type="submit">Se connecter</button>
+          <button 
+          class="w-100 btn btn-lg btn-primary" 
+          type="button"
+          onClick={Login}
+          >Se connecter</button>
           
         </form>
     </div>

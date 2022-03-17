@@ -1,33 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
-import Banner from './components/banner';
-//import Maliste from './components/MaListe';
-import Signin from './components/signin';
 
- <img src={logo} className="App-logo" alt="logo" />
+import React from 'react';
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import Home from "./pages/Home"
+import Signin from "./pages/Signin"
+import Signup from "./pages/Signup"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-         <div class="container-fluid">
-          <Banner />
-         </div>
-      </header>
-      <body class="container">
-        
-        <Signin/>
-      
-      </body>
-
-        <footer>
-
-        </footer>
-
-        
-      
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="*" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
+    
   );
 }
 
 export default App;
+
+
