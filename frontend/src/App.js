@@ -8,6 +8,7 @@ import Signin from "./pages/Signin"
 import Signup from "./pages/Signup"
 
 function App() {
+  
   const [token,setToken] = useState();   // test si token est present, si pas present affichage page signin
   if(!token) {
     return <Signin setToken={setToken} />

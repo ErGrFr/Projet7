@@ -6,7 +6,7 @@ import '../styles/signin.css'
 
 
 async function loginUser(credentials) {
-  return fetch('http://localhost:3000/login', {
+  return fetch('http://localhost:3000/api/auth/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -54,7 +54,8 @@ export default function Signin ({setToken}) {
           </div>
           <button 
           className="w-100 btn btn-lg btn-primary" 
-          type="button"
+          type="submit"
+          //type="button"
            //onClick={Signin}
           >Se connecter</button>
           
