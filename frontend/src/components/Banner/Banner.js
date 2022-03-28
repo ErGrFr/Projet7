@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import logo from '../assets/icon-left-font.png'
-import '../styles/Banner.css'
+import logo from '../../assets/icon-left-font.svg'
+import './Banner.css'
 
 function Banner() {
     return (
