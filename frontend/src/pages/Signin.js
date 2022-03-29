@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-//import Signin from '../components/signin';
 import '../styles/signin.css'
-//const bcrypt = require('bcrypt');           // lib bcrypt pour cryptage password
-
 
 
 async function loginUser(credentials) {
@@ -21,24 +18,19 @@ async function loginUser(credentials) {
 
 export default function Signin ({setToken}) {
 
-  //const passwordCrypt = '';
+  
   const [login, setUserName] = useState();
   const [password, setPassword] = useState();
-  //console.log(username +" "+ password);
-
-  
   
     const handleSubmit = async e => {
       e.preventDefault();
-      console.log(e.target);
-      console.log(login + "" + password);
-      //return;
+      
       const token = await loginUser({
         login,
         password
       });
       setToken(token);
-      //console.log(token);
+      
     }
     return (
         

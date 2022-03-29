@@ -1,15 +1,18 @@
 
-import React, {useState} from 'react';
+import React from 'react';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import './App.css'
 import Banner from './components/Banner/Banner';
 import Home from "./pages/Home"
 import Signin from "./pages/Signin"
 import Signup from "./pages/Signup"
+import useToken from './components/Token/useToken';
 
 function App() {
 
-  const [token,setToken] = useState();   // test si token est present, si pas present affichage page signin
+  const { token, setToken } = useToken();
+
+  //const [token,setToken] = useState();   // test si token est present, si pas present affichage page signin
   if(!token) {
     return <Signin setToken={setToken} />
   }
