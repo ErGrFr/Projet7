@@ -12,7 +12,7 @@ function App() {
 
   const { token, setToken } = useToken();
 
-  //const [token,setToken] = useState();   // test si token est present, si pas present affichage page signin
+  // test si token est present, si pas present affichage page signin
   if(!token) {
     return <Signin setToken={setToken} />
   }

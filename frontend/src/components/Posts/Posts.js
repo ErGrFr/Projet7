@@ -1,6 +1,8 @@
 import React from 'react';
 import './Posts.css'
-
+import Signin from "../../pages/Signin"
+//import Signup from "./pages/Signup"
+import useToken from '../Token/useToken';
 
 // ---------------- requete API --------------------------------
 async function allPosts() {
@@ -16,16 +18,33 @@ async function allPosts() {
 
 const Posts = () => {
 
+const { token, setToken } = useToken();  // authentification
+
+  // test si token est present, si pas present affichage page signin
+  if(!token) {
+    return <Signin setToken={setToken} />
+  }
+
+    // recuperation des posts
     const lesPosts = allPosts();
     console.log(lesPosts);
 
-    return (
-        <div className="post">
-            <p>
-                Posts
-            </p>
-        </div>
-    );
+    // on affiche tous les posts
+    for (const unPost of allPosts ){
+
+        return (
+            <div className="post">
+                <p>
+                    {unPost.title}
+                </p>
+            </div>
+        );
+
+
+
+    }
+
+    
 };
 
 export default Posts;
