@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import '../styles/signin.css'
 
 
+// ---------------- requete API --------------------------------
 async function loginUser(credentials) {
   return fetch('http://localhost:3000/api/auth/login', {
     method: 'POST',
