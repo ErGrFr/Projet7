@@ -1,32 +1,38 @@
 import React from 'react';
 import './Posts.css'
-import Signin from "../../pages/Signin"
+//import Signin from "../../pages/Signin"
 //import Signup from "./pages/Signup"
 import useToken from '../Token/useToken';
 
+
+
+
 // ---------------- requete API --------------------------------
-async function allPosts() {
-    return fetch('http://localhost:3000/api/posts', {
+ function allPosts(token) {
+
+    //const { token, getToken } = useToken();  // authentification
+    
+    //const leToken = sessionStorage.getItem('token');
+
+    fetch('http://localhost:3000/api/posts', {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+       'Authorization' : 'Bearer '+ token
+        
       },
       body: JSON.stringify()
     })
-      .then(data => data.json())
-   }
+    .then(data => data.json())
+}
 
-const Posts = () => {
+export default function Posts () {
+//const Posts = () => {
 
-const { token, setToken } = useToken();  // authentification
-
-  // test si token est present, si pas present affichage page signin
-  if(!token) {
-    return <Signin setToken={setToken} />
-  }
-
+    const {token} = useToken();
+    //console.log(useToken());
     // recuperation des posts
-    const lesPosts = allPosts();
+    const lesPosts = allPosts(token);
     console.log(lesPosts);
 
     // on affiche tous les posts
@@ -47,4 +53,4 @@ const { token, setToken } = useToken();  // authentification
     
 };
 
-export default Posts;
+//export default function Posts;
